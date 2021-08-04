@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nhận diện khuôn mặt</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style type="text/css">
+        .head{
+            margin-top: 50px;
+            text-align: center;
+        }
+        .upload{
+            display: flex;
+            margin-top: 30px;
+        }
+        .input{
+            margin: auto;
+            width: 500px;
+        }
+        #btpredict{
+            margin: auto;
+            margin-top: 30px;
+            width: 100px;
+            background-color: #0d6efd;
+        }
+        .listface{
+            margin: auto;
+            width: 300px;
+        }
+        .result{
+            display: flex;
+        }
+        .success{
+            margin: auto;
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-top:30px;
+        }
+        p{
+            text-align: center;
+        }
+        .fail{
+            margin: auto;
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-top:30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="head">
+        <p class="h1">Nhận diện khuôn mặt</p>
+        <p><em>Demo với khuôn mặt 5 người: Bill Gates, Elon Musk, Jack Ma, Jeff Bezos, Mark Zuckerberg</em></p>
+    </div>
+
+    <div class="upload">
+        <form action="/" method="post" enctype="multipart/form-data" class="input">
+            <input type="file" name="FileUpload" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+            <input type="submit" name="Upload" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="Dự đoán" id="btpredict">
+        </form>
+    </div>
+
+    <div class="result">
+        {% if success %}
+            <div class="success">
+                <div class="alert alert-success" role="alert">
+                    Nhận diện thành công
+                </div>
+                <p><b>Kết quả nhận diện</b></p>
+                <p>{{ facename }} ({{ probability }}%)</p>
+                <img src="{{ url_for('static', filename=imgname) }}" width="700px"/>
+            </div>
+        {% endif %}
+        {% if fail %}
+            <div class="fail">
+                <div class="alert alert-danger" role="alert">
+                    <p><b>Không phát hiện khuôn mặt trong ảnh</b></p>
+                </div>
+                <img src="{{ url_for('static', filename=imgname) }}" width="700px"/>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
