@@ -1,0 +1,5 @@
+tensorflow
+keras
+mtcnn
+flask
+sklearn
