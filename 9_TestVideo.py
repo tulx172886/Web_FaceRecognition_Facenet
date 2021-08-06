@@ -32,7 +32,7 @@ fps = cap.get(cv2.CAP_PROP_FPS)
 wait_time = 1000/fps
 
 # fourcc = cv2.VideoWriter_fourcc(*'XVID')
-# out = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,360))
+# out = cv2.VideoWriter('VideoDemo.avi',fourcc, 20.0, (640,360))
 while True:
     ret, frame = cap.read()
 
