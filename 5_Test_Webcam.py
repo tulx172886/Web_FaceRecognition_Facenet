@@ -64,14 +64,20 @@ while True:
         #Get name
         class_index = yhat_class[0]
         class_probability = yhat_prob[0, class_index] * 100
-        predict_name = out_encoder.inverse_transform(yhat_class)
-        print("Predict: %s" %(predict_name[0]))
-        print("Probability: %.3f" %(class_probability))
+        if class_probability > 95:
+            predict_name = out_encoder.inverse_transform(yhat_class)
+            print("Predict: %s" %(predict_name[0]))
+            print("Probability: %.3f" %(class_probability))
 
-        cv2.rectangle(frame, (x1,y1), (x2,y2), (0,255,0), 1)
-        cv2.putText(frame, predict_name[0] +" "+ str(round(class_probability,2)), (x1,y1), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 1)
+            cv2.rectangle(frame, (x1,y1), (x2,y2), (0,255,0), 1)
+            cv2.putText(frame, predict_name[0] +" "+ str(round(class_probability,2)), (x1,y1), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 1)
+
+        else:
+            cv2.rectangle(frame, (x1,y1), (x2,y2), (0,255,0), 1)
+            cv2.putText(frame, "Unknown", (x1,y1), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 1)
         cv2.imshow("Result", frame)
         cv2.waitKey(1)
+
     else:
         continue
 
