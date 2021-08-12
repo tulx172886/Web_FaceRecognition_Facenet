@@ -61,9 +61,16 @@ predict_name = out_encoder.inverse_transform(yhat_class)
 print("Predict: %s" %(predict_name[0]))
 print("Probability: %.3f" %(class_probability))
 
+
+
 cv2.rectangle(img_org, (x1,y1), (x2,y2), (0,255,0), 1)
-cv2.putText(img_org, predict_name[0] +" "+ str(round(class_probability,2)), (x1,y1), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 1)
-cv2.imshow("Result", img_org)
+if class_probability>95:
+    cv2.putText(img_org, predict_name[0] +" "+ str(round(class_probability,2)), (x1,y1), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 1)
+    cv2.imshow("Result", img_org)
+else:
+    cv2.putText(img_org, "Unknown", (x1,y1), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 1)
+    cv2.imshow("Result", img_org)
+
 cv2.waitKey(0)
 
 
