@@ -69,13 +69,23 @@ def index():
             print("Probability: %.3f" %(class_probability))
 
             cv2.rectangle(img_org, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            cv2.putText(img_org, predict_name[0] + " " + str(round(class_probability, 2)), (x1, y1),
-                        cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
-            cv2.imwrite(image_path, img_org)
-            return render_template("index.html", imgname=image.filename,
-                                                facename=predict_name[0],
-                                                probability=class_probability,
-                                                success=True)
+            if class_probability > 95:
+                cv2.putText(img_org, predict_name[0] + " " + str(round(class_probability, 2)), (x1, y1),
+                            cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
+                cv2.imwrite(image_path, img_org)
+                return render_template("index.html", imgname=image.filename,
+                                                    facename=predict_name[0],
+                                                    probability=class_probability,
+                                                    success=True)
+            else:
+                cv2.putText(img_org, "Unknown", (x1, y1),
+                            cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
+                cv2.imwrite(image_path, img_org)
+                return render_template("index.html", imgname=image.filename,
+                                                    facename="Unknown",
+                                                    probability="",
+                                                    success=True)
+
 
         else:
             return render_template("index.html",  imgname=image.filename,
