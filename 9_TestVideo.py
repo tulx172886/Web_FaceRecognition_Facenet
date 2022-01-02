@@ -12,7 +12,7 @@ data_embedding = np.load("DataEmbedding.npz")
 trainX, trainy, testX, testy = data_embedding['arr_0'], data_embedding['arr_1'], data_embedding['arr_2'], data_embedding['arr_3']
 print("Dataset with len(trainX)=%d" %(trainX.shape[0]))
 
-#Normalize input vector
+#Normalize input vecto
 in_encoder = Normalizer(norm = "l2")
 trainX = in_encoder.transform(trainX)
 
